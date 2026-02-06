@@ -1,232 +1,126 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
 <meta charset="UTF-8">
-<meta name="google-site-verification" content="_7bWDxFYOvYc3tdI3jmdJdhEga031alKd3bYBA9Khe0" />
-<meta name="description" content="blue fox services">
-<meta name="keywords" content="blue fox services">
-<meta name="author" content="Ishak">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BLUE FOX Apps</title>
-
-<!-- favicon ديناميكي -->
 <link id="dynamicFavicon" rel="icon" href="favicon.ico">
-
 <style>
-*{
-  box-sizing:border-box;
-  font-family:'Segoe UI',sans-serif;
-}
-
-html,body{
-  margin:0;
-  min-height:100vh;
-  background:radial-gradient(circle at top,#0aa2ff,#001f3f);
-  color:white;
-  overscroll-behavior:none;
-  touch-action:manipulation;
-}
+*{box-sizing:border-box;font-family:'Segoe UI',sans-serif;margin:0;padding:0;}
+html,body{min-height:100vh;background:#001f3f;color:white;overflow-x:hidden;}
 
 /* ================= INTRO ================= */
 #intro{
-  position:fixed;
-  inset:0;
+  position:fixed; inset:0;
   background:radial-gradient(circle at top,#0aa2ff,#00152d);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-  animation:fadeOut 1.2s ease forwards;
-  animation-delay:3s;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  z-index:9999; animation:fadeOut 1.2s ease forwards; animation-delay:3s;
 }
+@keyframes fadeOut{to{opacity:0;visibility:hidden}}
+.intro-text{font-size:36px;letter-spacing:8px;font-weight:900;text-shadow:0 0 40px #9ff;}
+.ice{position:absolute; inset:0; background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent); animation:iceMove 1.3s linear infinite;}
+@keyframes iceMove{from{transform:translateX(-100%)} to{transform:translateX(100%)}}
 
-@keyframes fadeOut{
-  to{opacity:0;visibility:hidden}
+/* ================= WELCOME ================= */
+#welcome{
+  display:none; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+  width:100%; height:100vh; position:relative; overflow:hidden; background:#00152d;
 }
+#welcome::before{
+  content:""; position:absolute; inset:0; background:linear-gradient(45deg,#00f,#0ff,#0f0,#ff0,#f0f,#f00,#00f); background-size:600% 600%; animation:gradientBG 20s ease infinite; opacity:0.3;
+}
+@keyframes gradientBG{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+#welcome-content{position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:20px; width:90%; max-width:600px;}
+#welcome h1{
+  font-size:42px; font-weight:900; letter-spacing:4px; text-shadow:0 0 30px #00ffff, 0 0 60px #ff00ff;
+  animation:glowText 2s ease-in-out infinite alternate;
+  position:relative;
+}
+@keyframes glowText{0%{text-shadow:0 0 20px #00ffff,0 0 40px #ff00ff;} 100%{text-shadow:0 0 40px #00ffff,0 0 80px #ff00ff;}}
+#welcome p{font-size:18px; text-shadow:0 0 15px #00000066;}
+#welcome button{
+  padding:16px 32px; border:none; border-radius:30px;
+  background:linear-gradient(135deg,#00ffff,#0055ff); color:white; font-weight:900; cursor:pointer;
+  box-shadow:0 12px 30px rgba(0,0,0,.5); transition:.3s; font-size:16px;
+}
+#welcome button:hover{transform:scale(1.1);}
 
-.intro-text{
-  font-size:30px;
-  letter-spacing:6px;
-  font-weight:900;
-  text-shadow:0 0 30px #9ff;
+/* ================= SEARCH ================= */
+#searchBar{
+  width:100%; display:flex; justify-content:center; margin:20px 0 10px; display:none;
 }
-
-.ice{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);
-  animation:iceMove 1.3s linear infinite;
-}
-@keyframes iceMove{
-  from{transform:translateX(-100%)}
-  to{transform:translateX(100%)}
+#searchBar input{
+  width:100%; max-width:500px; padding:14px 20px; border-radius:30px;
+  border:none; outline:none; font-size:16px; text-align:center;
+  box-shadow:0 8px 25px rgba(0,0,0,.4); background:rgba(255,255,255,.1); color:white;
+  backdrop-filter:blur(5px);
 }
 
 /* ================= MAIN ================= */
-.wrapper{
-  max-width:720px;
-  margin:auto;
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:20px;
-}
-
-.title{
-  font-size:26px;
-  font-weight:900;
-  letter-spacing:3px;
-  text-shadow:0 5px 25px rgba(0,0,0,.7);
-}
-
-.apps{
-  width:100%;
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:20px;
-}
-
-.card{
-  height:140px;
-  border-radius:28px;
-  background:linear-gradient(145deg,#1ec9ff,#005eff);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  text-decoration:none;
-  box-shadow:0 25px 60px rgba(0,0,0,.6);
-  transition:.45s cubic-bezier(.4,0,.2,1);
-  position:relative;
-  overflow:hidden;
-  opacity:0;
-  animation:cardIn .8s forwards;
-}
-
-.card:nth-child(1){animation-delay:.3s}
-.card:nth-child(2){animation-delay:.5s}
-.card:nth-child(3){animation-delay:.7s}
-.card:nth-child(4){animation-delay:.9s}
+.wrapper{max-width:720px;margin:auto;padding:0 20px;display:flex;flex-direction:column;align-items:center;gap:20px; display:none;}
+.title{font-size:28px;font-weight:900;letter-spacing:3px;text-shadow:0 5px 25px rgba(0,0,0,.7);}
+.apps{width:100%; display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
+.card{height:140px;border-radius:28px;background:linear-gradient(145deg,#1ec9ff,#005eff);display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;text-decoration:none;box-shadow:0 25px 60px rgba(0,0,0,.6);transition:.45s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;opacity:0;animation:cardIn .8s forwards;}
+.card:nth-child(1){animation-delay:.3s}.card:nth-child(2){animation-delay:.5s}
+.card:nth-child(3){animation-delay:.7s}.card:nth-child(4){animation-delay:.9s}
 .card:nth-child(5){animation-delay:1.1s}
-
-@keyframes cardIn{
-  to{opacity:1;transform:none}
-}
-
-.card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,.4),transparent);
-  transform:translateX(-100%);
-  transition:.7s;
-}
-.card:hover::before{
-  transform:translateX(100%);
-}
-.card:hover{
-  transform:translateY(-10px) scale(1.05);
-}
-.card:active{
-  transform:scale(.96);
-}
-
-.icon{
-  font-size:52px;
-  margin-bottom:10px;
-  filter:drop-shadow(0 6px 15px rgba(0,0,0,.6));
-}
-.name{
-  font-size:13px;
-  font-weight:800;
-  letter-spacing:2px;
-}
+@keyframes cardIn{to{opacity:1;transform:none}}
+.card::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.4),transparent);transform:translateX(-100%);transition:.7s;}
+.card:hover::before{transform:translateX(100%)}
+.card:hover{transform:translateY(-10px) scale(1.05);}
+.card:active{transform:scale(.96);}
+.icon{font-size:52px;margin-bottom:10px;filter:drop-shadow(0 6px 15px rgba(0,0,0,.6));}
+.name{font-size:13px;font-weight:800;letter-spacing:2px;}
 
 /* ================= VIEWER ================= */
-#appViewer{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:black;
-  z-index:9998;
-  animation:zoomFade .6s cubic-bezier(.4,0,.2,1);
-}
-
-@keyframes zoomFade{
-  from{transform:scale(1.2);filter:blur(20px);opacity:0}
-  to{transform:scale(1);filter:none;opacity:1}
-}
-
-#appViewer iframe{
-  width:100%;
-  height:100dvh;
-  border:none;
-}
-
-#backBtn{
-  position:fixed;
-  top:env(safe-area-inset-top,12px);
-  left:12px;
-  z-index:10;
-  background:rgba(255,255,255,.25);
-  color:white;
-  border:none;
-  padding:10px 18px;
-  border-radius:22px;
-  backdrop-filter:blur(12px);
-  font-size:14px;
-  cursor:pointer;
-  transition:.3s;
-}
-#backBtn:hover{
-  transform:scale(1.1);
-}
+#appViewer{display:none; position:fixed; inset:0; background:black; z-index:9998; animation:zoomFade .6s cubic-bezier(.4,0,.2,1);}
+@keyframes zoomFade{from{transform:scale(1.2);filter:blur(20px);opacity:0} to{transform:scale(1);filter:none;opacity:1}}
+#appViewer iframe{width:100%;height:100dvh;border:none;}
+#backBtn{position:fixed;top:env(safe-area-inset-top,12px);left:12px;z-index:10;background:rgba(255,255,255,.25);color:white;border:none;padding:10px 18px;border-radius:22px;backdrop-filter:blur(12px);font-size:14px;cursor:pointer;transition:.3s;}
+#backBtn:hover{transform:scale(1.1);}
 
 /* ================= MOBILE ================= */
-@media(max-width:600px){
-  .apps{grid-template-columns:1fr}
-}
+@media(max-width:600px){.apps{grid-template-columns:1fr}}
 </style>
 </head>
 
 <body>
 
-<div class="wrapper">
-  <h1 class="title">BLUE FOX APPS</h1>
-
-  <div class="apps">
-
-    <a class="card" href="#" onclick="openApp(event,'https://ishak08bj-svg.github.io/BLUE-FOX-tasks/','tasks.ico')">
-      <div class="icon">📋</div><div class="name">TASKS</div>
-    </a>
-
-    <a class="card" href="#" onclick="openApp(event,'https://ishak08bj-svg.github.io/BLUE-FOX-calculatrice/','calc.ico')">
-      <div class="icon">🧮</div><div class="name">CALCULATOR</div>
-    </a>
-
-    <a class="card" href="#" onclick="openApp(event,'https://ishak08bj-svg.github.io/blue-fox-tradutor/','translate.ico')">
-      <div class="icon">🌍</div><div class="name">TRANSLATOR</div>
-    </a>
-
-    <a class="card" href="#" onclick="openApp(event,'https://ishak08bj-svg.github.io/blue-fox-Currency-Converter/','currency.ico')">
-      <div class="icon">💱</div><div class="name">CURRENCY</div>
-    </a>
-
-    <a class="card" href="#" onclick="openApp(event,'https://ishak08bj-svg.github.io/BLUE-FOX-Unit-Converter/','unit.ico')">
-      <div class="icon">⚖️</div><div class="name">UNITS</div>
-    </a>
-
-  </div>
-</div>
-
 <!-- intro -->
 <div id="intro">
   <div class="intro-text">BLUE FOX</div>
   <div class="ice"></div>
+</div>
+
+<!-- welcome -->
+<div id="welcome">
+  <div id="welcome-content">
+    <h1>مرحبًا بك في BLUE FOX APPS</h1>
+    <p>اكتشف خدماتنا بسهولة وانطلق مباشرة إلى التطبيقات</p>
+    <button onclick="showApps()">ابدأ الآن</button>
+  </div>
+</div>
+
+<!-- main apps -->
+<div class="wrapper">
+  <h1 class="title">BLUE FOX APPS</h1>
+
+  <!-- search فوق التطبيقات -->
+  <div id="searchBar">
+    <input type="text" id="searchInput" placeholder="ابحث عن الخدمة...">
+  </div>
+
+  <div class="apps">
+    <a class="card" href="#" onclick="openApp(event,'https://ishak08bj-svg.github.io/BLUE-FOX-tasks/','tasks.ico')"><div class="icon">📋</div><div class="name">TASKS</div></a>
+    <a class="card" href="#" onclick="openApp(event,'https://ishak08bj-svg.github.io/BLUE-FOX-calculatrice/','calc.ico')"><div class="icon">🧮</div><div class="name">CALCULATOR</div></a>
+    <a class="card" href="#" onclick="openApp(event,'https://ishak08bj-svg.github.io/blue-fox-tradutor/','translate.ico')"><div class="icon">🌍</div><div class="name">TRANSLATOR</div></a>
+    <a class="card" href="#" onclick="openApp(event,'https://ishak08bj-svg.github.io/blue-fox-Currency-Converter/','currency.ico')"><div class="icon">💱</div><div class="name">CURRENCY</div></a>
+    <a class="card" href="#" onclick="openApp(event,'https://ishak08bj-svg.github.io/BLUE-FOX-Unit-Converter/','unit.ico')"><div class="icon">⚖️</div><div class="name">UNITS</div></a>
+  </div>
 </div>
 
 <!-- viewer -->
@@ -237,28 +131,55 @@ html,body{
 
 <script>
 document.body.style.overflow="hidden";
-setTimeout(()=>{document.body.style.overflow="auto"},3000);
 
+/* بعد 3 ثواني، انتهاء intro وفتح الترحيب */
+setTimeout(()=>{
+  document.getElementById('intro').style.display='none';
+  document.getElementById('welcome').style.display='flex';
+  document.body.style.overflow='auto';
+},3000);
+
+/* إظهار التطبيقات بعد الضغط على زر الترحيب */
+function showApps(){
+  document.getElementById('welcome').style.display='none';
+  document.querySelector('.wrapper').style.display='flex';
+  document.getElementById('searchBar').style.display='flex';
+}
+
+/* محرك البحث */
+document.getElementById('searchInput').addEventListener('input', function(){
+  const query = this.value.toLowerCase();
+  document.querySelectorAll('.card').forEach(card=>{
+    const name = card.querySelector('.name').textContent.toLowerCase();
+    card.style.display = name.includes(query) ? 'flex' : 'none';
+  });
+});
+
+/* فتح التطبيق */
+function lockScroll(lock){document.body.style.overflow = lock ? "hidden" : "auto";}
 function openApp(e,url,favicon){
   e.preventDefault();
-  document.querySelector('.wrapper').style.display="none";
-  const viewer=document.getElementById("appViewer");
-  viewer.style.display="block";
-  document.getElementById("appFrame").src=url;
-  if(favicon){
-    document.getElementById("dynamicFavicon").href=favicon;
-  }
+  lockScroll(true);
+  document.querySelector('.wrapper').style.display='none';
+  const viewer = document.getElementById('appViewer');
+  viewer.style.display='flex';
+  document.getElementById('appFrame').src=url;
+  if(favicon){document.getElementById('dynamicFavicon').href=favicon;}
 }
 
+/* رجوع من التطبيق */
 function closeApp(){
-  document.getElementById("appFrame").src="";
-  document.getElementById("appViewer").style.display="none";
-  document.querySelector('.wrapper').style.display="flex";
+  const viewer=document.getElementById('appViewer');
+  const frame=document.getElementById('appFrame');
+  viewer.style.display='none';
+  frame.src='';
+  document.querySelector('.wrapper').style.display='flex';
+  lockScroll(false);
 }
+
+/* تحسين اللمس للجوال */
+document.addEventListener('touchstart',()=>{}, {passive:true});
 </script>
 
 </body>
 </html>
-
-
-
